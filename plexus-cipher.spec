@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.7
-Release:        5.12%{?dist}
+Release:        5.13%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 
 License:        ASL 2.0
@@ -19,18 +19,18 @@ Source0:        %{pkg_name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: %{?scl_prefix_java_common}maven-local
-BuildRequires: maven30-maven-plugin-plugin
-BuildRequires: maven30-maven-resources-plugin
-BuildRequires: maven30-maven-doxia-sitetools
-BuildRequires: maven30-forge-parent
-BuildRequires: maven30-spice-parent
-BuildRequires: maven30-plexus-containers-component-metadata
+BuildRequires: %{?scl_prefix}maven-plugin-plugin
+BuildRequires: %{?scl_prefix}maven-resources-plugin
+BuildRequires: %{?scl_prefix}maven-doxia-sitetools
+BuildRequires: %{?scl_prefix}forge-parent
+BuildRequires: %{?scl_prefix}spice-parent
+BuildRequires: %{?scl_prefix}plexus-containers-component-metadata
 BuildRequires: %{?scl_prefix_java_common}junit
-BuildRequires: maven30-maven-reporting-impl
-BuildRequires: maven30-plexus-digest
-BuildRequires: maven30-sisu-maven-plugin
-BuildRequires: maven30-sisu-inject-bean
-BuildRequires: maven30-cdi-api
+BuildRequires: %{?scl_prefix}maven-reporting-impl
+BuildRequires: %{?scl_prefix}plexus-digest
+BuildRequires: %{?scl_prefix}sisu-maven-plugin
+BuildRequires: %{?scl_prefix}sisu-inject-bean
+BuildRequires: %{?scl_prefix}cdi-api
 
 
 
@@ -46,7 +46,7 @@ API documentation for %{pkg_name}.
 
 %prep
 %setup -q -n %{pkg_name}-%{version}
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 
 # replace %{version}-SNAPSHOT with %{version}
@@ -59,13 +59,13 @@ set -e -x
 %{?scl:EOF}
 
 %build
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_build -f
 %{?scl:EOF}
 
 %install
-%{?scl:scl enable maven30 %{scl} - <<"EOF"}
+%{?scl:scl enable %{scl} - <<"EOF"}
 set -e -x
 %mvn_install
 %{?scl:EOF}
@@ -79,6 +79,9 @@ set -e -x
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1.7-5.13
+- maven33 rebuild #2
+
 * Sat Jan 09 2016 Michal Srb <msrb@redhat.com> - 1.7-5.12
 - maven33 rebuild
 
