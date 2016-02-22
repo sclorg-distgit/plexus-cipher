@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.7
-Release:        5.14%{?dist}
+Release:        5.15%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 
 License:        ASL 2.0
@@ -29,10 +29,7 @@ BuildRequires: %{?scl_prefix_java_common}junit
 BuildRequires: %{?scl_prefix}maven-reporting-impl
 BuildRequires: %{?scl_prefix}plexus-digest
 BuildRequires: %{?scl_prefix}sisu-mojos
-BuildRequires: %{?scl_prefix}sisu-inject-bean
 BuildRequires: %{?scl_prefix}cdi-api
-
-
 
 %description
 Plexus Cipher: encryption/decryption Component
@@ -83,6 +80,9 @@ set -e -x
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jan 18 2016 Michal Srb <msrb@redhat.com> - 1.7-5.15
+- Remove BR: sisu-inject-bean
+
 * Thu Jan 14 2016 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7-5.14
 - Build against Eclipse Sisu
 
