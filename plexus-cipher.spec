@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.7
-Release:        5.13%{?dist}
+Release:        5.14%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 
 License:        ASL 2.0
@@ -28,7 +28,7 @@ BuildRequires: %{?scl_prefix}plexus-containers-component-metadata
 BuildRequires: %{?scl_prefix_java_common}junit
 BuildRequires: %{?scl_prefix}maven-reporting-impl
 BuildRequires: %{?scl_prefix}plexus-digest
-BuildRequires: %{?scl_prefix}sisu-maven-plugin
+BuildRequires: %{?scl_prefix}sisu-mojos
 BuildRequires: %{?scl_prefix}sisu-inject-bean
 BuildRequires: %{?scl_prefix}cdi-api
 
@@ -52,7 +52,11 @@ set -e -x
 # replace %{version}-SNAPSHOT with %{version}
 %pom_xpath_replace pom:project/pom:version "<version>%{version}</version>"
 
-# plexus-cipher uses @Typed annotation
+# fedora moved from sonatype sisu to eclipse sisu. sisu-inject-bean artifact
+# doesn't exist in eclipse sisu. this artifact contains nothing but
+# bundled classes from atinject, cdi-api, aopalliance and maybe others.
+%pom_remove_dep org.sonatype.sisu:sisu-inject-bean
+%pom_add_dep javax.inject:javax.inject:1:provided
 %pom_add_dep javax.enterprise:cdi-api:1.0:provided
 
 %mvn_file : plexus/%{pkg_name}
@@ -79,6 +83,9 @@ set -e -x
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 14 2016 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.7-5.14
+- Build against Eclipse Sisu
+
 * Mon Jan 11 2016 Michal Srb <msrb@redhat.com> - 1.7-5.13
 - maven33 rebuild #2
 
