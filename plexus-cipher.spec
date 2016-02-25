@@ -4,7 +4,7 @@
 
 Name:           %{?scl_prefix}%{pkg_name}
 Version:        1.7
-Release:        5.15%{?dist}
+Release:        5.16%{?dist}
 Summary:        Plexus Cipher: encryption/decryption Component
 
 License:        ASL 2.0
@@ -18,7 +18,7 @@ Source0:        %{pkg_name}-%{version}.tar.gz
 
 BuildArch: noarch
 
-BuildRequires: %{?scl_prefix_java_common}maven-local
+BuildRequires: %{?scl_prefix}maven-local
 BuildRequires: %{?scl_prefix}maven-plugin-plugin
 BuildRequires: %{?scl_prefix}maven-resources-plugin
 BuildRequires: %{?scl_prefix}maven-doxia-sitetools
@@ -80,6 +80,9 @@ set -e -x
 %doc LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Feb 08 2016 Michal Srb <msrb@redhat.com> - 1.7-5.16
+- Fix BR on maven-local & co.
+
 * Mon Jan 18 2016 Michal Srb <msrb@redhat.com> - 1.7-5.15
 - Remove BR: sisu-inject-bean
 
